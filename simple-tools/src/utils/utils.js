@@ -12,6 +12,7 @@ export const translitCollection = {
     "z": "з",
     "i": "и",
     "y": "й",
+    "j": "й",
     "k": "к",
     "l": "л",
     "m": "м",
@@ -36,7 +37,9 @@ export const translitCollection = {
     "yu": "ю",
     "ыu": "ю",
     "ya": "я",
+    "ja": "я",
     "ыa": "я",
+    "йa": "я",
     "ö": "ь",
     "ü": "ъ"
 };
