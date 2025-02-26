@@ -8,6 +8,7 @@ import todoIcon from '../assets/to_do_32dp.svg';
 import calendarIcon from '../assets/calendar_32dp.svg';
 import weatherIcon from '../assets/weather_32dp.svg';
 import translitIcon from '../assets/translit_32dp.svg';
+import settingsIcon from '../assets/settings_32dp.svg';
 
 const Header = () => {
 
@@ -20,7 +21,8 @@ const Header = () => {
                 <HeaderNavButton id='todo' icon={todoIcon}/>
                 <HeaderNavButton id='calendar' icon={calendarIcon}/>
                 <HeaderNavButton id='weather' icon={weatherIcon}/>
-                <HeaderNavButton id='translit' icon={translitIcon}/>   
+                <HeaderNavButton id='translit' icon={translitIcon}/>
+                <HeaderNavButton id='settings' icon={settingsIcon}/>   
             </nav>
             <HeaderBottom />
         </header>

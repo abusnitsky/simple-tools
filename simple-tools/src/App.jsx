@@ -19,7 +19,6 @@ function App() {
           <Route path="/translit" element={<Translit />} /> 
         </Routes>
       </Router>
-
     </>
   )
 }
