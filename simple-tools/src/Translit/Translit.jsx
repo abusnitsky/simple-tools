@@ -43,12 +43,12 @@ const Translit = () => {
     return (
         <div className={styles.translitPage}>
             <div className={styles.translitContainer}>
-                <div className={styles.translitTitle}>Timer</div>
+                <div className={styles.translitTitle}>Transliteration</div>
                 <div className={styles.infoRow}>
                     {Object.entries(translitCollection).map(([key, value]) => (
                         <div key={key} className={styles.translitInfo}>
-                          <div className={styles.translitInfoTop}>{key}</div>
-                          <div className={styles.translitInfoBottom}>{value}</div>
+                          <div>{key}</div>
+                          <div>{value}</div>
                         </div>
                     ))}
                 </div>

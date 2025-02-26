@@ -36,31 +36,28 @@
 .infoRow {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
-    /* background-color: #07075a; */
+    align-items: center;
+    justify-content: center;
 }
 
 .translitInfo {
     display: inline-flex;
     flex-direction: column;
-    font-size: 0.5em;
+    font-size: 0.6em;
     margin: 0 2px;
-    gap: 2px;
     justify-content: center;
     align-items: center;
 }
-
-/* .translitInfoTop {}
-
-.translitInfoBottom {} */
 
 .inputRow {
     margin: 8px 0;
 }
 
 .translitTextArea {
-    width: 100%;
-    height: 100px;
+    min-width: 100%;
+    height: 10em;
+    resize: none;
+    font-size: 0.7em;
 }
 
 .controlsRow {
@@ -76,17 +73,25 @@
     color: #efefef;
     border: 2px solid #efefef;
     width: 30%;
-    padding-top: 2px;
+    font-size: 1em;
+    padding-bottom: 2px;
+}
+
+.searchButton:hover,
+.clipboardButton:hover {
+    cursor: pointer;
+    background-color: #07075a;
+
 }
 
 .searchButton {
     border-bottom-left-radius: 50%;
-    padding-left: 24px;
+    padding-left: 32px;
     margin-right: 2px;
 }
 
 .clipboardButton {
     border-bottom-right-radius: 50%;
-    padding-right: 24px;
+    padding-right: 32px;
     margin-left: 2px;
 }
