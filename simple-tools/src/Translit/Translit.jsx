@@ -6,6 +6,14 @@ const Translit = () => {
     const [text, setText] = useState('');
     const [translit, setTranslit] = useState('');
 
+    const handleCopyButtonClick = () => {
+        navigator.clipboard.writeText(translit);
+    }
+
+    const handleSearchButtonClick = () => {
+        window.open(`https://www.google.com/search?q=${translit}`, '_blank');
+    }
+
     useEffect(() => {
         const translitText = (text) => {
             let result = '';
@@ -48,8 +56,8 @@ const Translit = () => {
                     <textarea className={styles.translitTextArea} value={translit} onChange={(e) => setText(e.target.value)} />
                 </div>
                 <div className={styles.controlsRow}>
-                    <button className={styles.searchButton}>Search</button>
-                    <button className={styles.clipboardButton}>Copy</button>
+                    <button className={styles.searchButton} onClick={handleSearchButtonClick}>Search</button>
+                    <button className={styles.clipboardButton} onClick={handleCopyButtonClick}>Copy</button>
                 </div>
             </div>
         </div>
