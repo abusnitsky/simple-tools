@@ -1,0 +1,130 @@
+.timerPage {
+    display: flex;
+    justify-content: center;
+    background-color: #03032e;
+    height: 100vh;
+    padding: 32px 0;
+    font-size: 32px;
+    color: #efefef;
+}
+
+.timerContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: inherit;
+    height: fit-content;
+    position: relative;
+    padding: 32px;
+    border: 2px solid #efefef;
+    border-radius: 8px;
+    width: 50vw;
+    min-width: -webkit-fill-available;
+    min-width: fit-content;
+}
+
+.timerTitle {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5em;
+    z-index: 2;
+    padding: 0 8px;
+    background-color: inherit;
+}
+
+.topRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: inherit;
+
+}
+
+.display {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    margin: 0 8px;
+}
+
+.soundButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: inherit;
+    border: none;
+    padding-top: 3px;
+}
+
+.soundButton:hover {
+    cursor: pointer;
+}
+
+.setButtonsColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+
+}
+
+.setButton {
+    width: 100%;
+    font-size: inherit;
+    padding: 0;
+    margin: 2px 0;
+    color: inherit;
+    background-color: inherit;
+    border: 2px solid #efefef;
+    border-radius: 2px;
+    min-width: 2em;
+
+}
+
+.setButton:hover {
+    cursor: pointer;
+    background-color: #07075a;
+}
+
+.bottomRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+.startButton,
+.resetButton {
+    background-color: inherit;
+    border: 2px solid #efefef;
+    width: 50%;
+    padding-top: 2px;
+}
+
+.startButton:hover,
+.resetButton:hover {
+    cursor: pointer;
+    background-color: #07075a;
+
+}
+
+.startButton {
+    border-bottom-right-radius: 50%;
+    padding-right: 24px;
+    margin-left: 2px;
+
+}
+
+.resetButton {
+    border-bottom-left-radius: 50%;
+    padding-left: 24px;
+    margin-right: 2px;
+}
+
+.controlButtonIcon {
+    pointer-events: none;
+}

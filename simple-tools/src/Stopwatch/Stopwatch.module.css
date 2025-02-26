@@ -1,0 +1,74 @@
+.stopwatchPage {
+    display: flex;
+    justify-content: center;
+    background-color: #03032e;
+    height: 100vh;
+    padding: 32px 0;
+    font-size: 32px;
+    color: #efefef;
+}
+
+.stopwatchContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: inherit;
+    height: fit-content;
+    position: relative;
+    padding: 32px;
+    border: 2px solid #efefef;
+    border-radius: 8px;
+    width: 50vw;
+    min-width: -webkit-fill-available;
+    min-width: fit-content;
+}
+
+.stopwatchDisplay {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    margin: 0 8px;
+}
+
+.stopwatchTitle {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.5em;
+    z-index: 2;
+    padding: 0 8px;
+    background-color: inherit;
+}
+
+.stopwatchControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 2px;
+}
+
+.stopwatchResetButton,
+.stopwatchStartButton {
+    background-color: inherit;
+    border: 2px solid #efefef;
+    width: 30%;
+    padding-top: 2px;
+}
+
+.stopwatchResetButton {
+    border-bottom-left-radius: 50%;
+    padding-left: 24px;
+    margin-right: 2px;
+}
+
+.stopwatchStartButton {
+    border-bottom-right-radius: 50%;
+    padding-right: 24px;
+    margin-left: 2px;
+}
+
+.controlButtonIcon{
+    pointer-events: none;
+}
