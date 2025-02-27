@@ -1,15 +1,17 @@
-const express = require('express');
-const app = express();
-const cors = require('cors');
-const mongoose = require('mongoose');
+//import express from 'express';
+//import cors from 'cors';
+import mongoose from 'mongoose';
+import Todo from './model/Todo.js';
+//const app = express();
 const uri = "mongodb+srv://abusnitsky:devpass@simpletools.ngo3l.mongodb.net/?retryWrites=true&w=majority&appName=SimpleTools";
 
-
-
-const corsOptions = {
+/* const corsOptions = {
     origin: 'http://localhost:5173',
-};
-app.use(cors(corsOptions));
+}; */
+
+mongoose.connect(uri);
+/* app.use(cors(corsOptions));
+
 
 app.get('/test', (req, res) => {
     res.send('Hello World');
@@ -17,4 +19,8 @@ app.get('/test', (req, res) => {
 
 app.listen(8080, () => {
     console.log('Server is running on port 8080');
-});
+}); */
+
+const todo = await Todo.where("done").equals(false);
+
+console.log(todo);
