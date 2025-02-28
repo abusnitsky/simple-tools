@@ -1,5 +1,5 @@
 import express from 'express';
-//import cors from 'cors';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -8,11 +8,11 @@ import Todo from './model/Todo.js';
 const app = express();
 const uri = "mongodb+srv://abusnitsky:devpass@simpletools.ngo3l.mongodb.net/simptdb?retryWrites=true&w=majority&appName=SimpleTools";
 
-/* const corsOptions = {
+const corsOptions = {
     origin: 'http://localhost:5173',
-}; */
+};
 
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 mongoose.connect(uri)
