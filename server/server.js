@@ -4,19 +4,15 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import todoRoutes from './routes/todos.js';
+import config from './config/config.js';
 
 const app = express();
-const uri = "mongodb+srv://abusnitsky:devpass@simpletools.ngo3l.mongodb.net/simptdb?retryWrites=true&w=majority&appName=SimpleTools";
 
-const corsOptions = {
-    origin: 'http://localhost:5173',
-};
-
-app.use(cors(corsOptions));
+app.use(cors(config.corsOptions));
 app.use(express.json());
 app.use('/todos', todoRoutes);
 
-mongoose.connect(uri)
+mongoose.connect(config.mongoURI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.error("MongoDB Connection Error:", err));
 

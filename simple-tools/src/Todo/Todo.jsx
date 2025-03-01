@@ -1,7 +1,8 @@
 import React, { useState, useEffect, use } from 'react'
 import axios from 'axios'
-
-const API_URL = 'http://localhost:8080/todos';
+import styles from './Todo.module.css'
+import config from '../config.js'
+import addIcon from '../assets/add_24dp.svg'
 
 function Todo() {
     const [todos, setTodos] = useState([]);
@@ -11,55 +12,67 @@ function Todo() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(API_URL, { text: todoText, done: todoDone })
+        axios.post(config.TODO_API_URL, { text: todoText, done: todoDone })
             .then(response => setTodos([...todos, response.data]))
             .catch(error => console.error('Error:', error));
         setTodoText('');
     }
 
     const toggleDone = (id, done) => {
-        axios.patch(`${API_URL}/${id}`, { done: !done })
-            .then(response => setTodos(todos.map(todo => todo._id === id ? response.data : todo))
-            )
+        axios.patch(`${config.TODO_API_URL}/${id}`, { done: !done })
+            .then(response => setTodos(prevTodos => prevTodos.map(todo => todo._id === id ? response.data : todo)))
             .catch(error => console.error('Error:', error));
     }
 
     const handleDelete = (id) => {
-        axios.delete(`${API_URL}/${id}?status=${filter}`)
+        axios.delete(`${config.TODO_API_URL}/${id}?status=${filter}`)
             .then(response => setTodos(response.data))
             .catch(error => console.error('Error:', error));
     }
 
     useEffect(() => {
-        axios.get(`${API_URL}?status=${filter !== "all" ? filter : ""}`)
+        axios.get(`${config.TODO_API_URL}?status=${filter !== "all" ? filter : ""}`)
             .then(response => setTodos(response.data))
             .catch(error => console.error('Error:', error));
     }, [filter]);
 
     return (
-        <div className='todo-page'>
-            <div className='todo-container'>
-                <div className='new-todo-row'>
-                    <form onSubmit={handleSubmit}>
-                        <input type='text' placeholder='New Todo'
-                            value={todoText} onChange={(e) => setTodoText(e.target.value)}></input>
-                        <button type='submit'>Add</button>
+        <div className={styles.todoPage}>
+            <div className={styles.todoContainer}>
+                <div className={styles.todoTitle}>To Do</div>
+                <div className={styles.newTodoRow}>
+                    <form className={styles.newTodoForm} onSubmit={handleSubmit}>
+                        <input className={styles.newTodoInput}
+                            type='text'
+                            placeholder='New Todo'
+                            value={todoText}
+                            onChange={(e) => setTodoText(e.target.value)}
+                        />
+                        <button className={styles.addTodoButton}
+                            type='submit'>
+                            <img src={addIcon} alt='Add' />
+                        </button>
                     </form>
                 </div>
-                <div className='todo-list-row'>
-                    <div className='todo-list-nav-row'>
-                        <button onClick={() => setFilter("active")}>Active</button>
-                        <button onClick={() => setFilter("done")}>Done</button>
+                <div className={styles.todoListContainer}>
+                    <div className={styles.todoListRowNav}>
+                        <button className={styles.activeTodoButton}
+                            onClick={() => setFilter("active")}>Active</button>
+                        <button className={styles.doneTodoButton}
+                            onClick={() => setFilter("done")}>Done</button>
                     </div>
-                    <div className='todo-list'>
+                    <div className={styles.todoList}>
                         {todos.map(({ _id, text, done }) => (
-                            <div key={_id}>
-                                <input type='checkbox'
+                            <div className={styles.todoItem}
+                                key={_id}>
+                                <input className={styles.doneTodoCheckbox}
+                                    type='checkbox'
                                     checked={done}
                                     onChange={() => toggleDone(_id, done)}
                                 />
                                 <span>{text}</span>
-                                <button onClick={() => handleDelete(_id)}>X</button>
+                                <button className={styles.deleteTodoButton}
+                                    onClick={() => handleDelete(_id)}>X</button>
                             </div>
                         ))}
                     </div>
