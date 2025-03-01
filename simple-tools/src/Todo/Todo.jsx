@@ -1,31 +1,40 @@
 import React, { useState, useEffect, use } from 'react'
 import axios from 'axios'
 
+const API_URL = 'http://localhost:8080/todos';
+
 function Todo() {
     const [todos, setTodos] = useState([]);
     const [todoText, setTodoText] = useState('');
     const [todoDone, setTodoDone] = useState(false);
-    const [todoFilter, setTodoFilter] = useState(true);
+    const [filter, setFilter] = useState('active');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/todos', { text: todoText, done: todoDone })
+        axios.post(API_URL, { text: todoText, done: todoDone })
             .then(response => setTodos([...todos, response.data]))
             .catch(error => console.error('Error:', error));
         setTodoText('');
     }
 
-    const handleCheckbox = (index) => {
-        const newTodos = [...todos];
-        newTodos[index].done = !newTodos[index].done;
-        setTodos(newTodos);
+    const toggleDone = (id, done) => {
+        axios.patch(`${API_URL}/${id}`, { done: !done })
+            .then(response => setTodos(todos.map(todo => todo._id === id ? response.data : todo))
+            )
+            .catch(error => console.error('Error:', error));
+    }
+
+    const handleDelete = (id) => {
+        axios.delete(`${API_URL}/${id}?status=${filter}`)
+            .then(response => setTodos(response.data))
+            .catch(error => console.error('Error:', error));
     }
 
     useEffect(() => {
-        axios.get('http://localhost:8080/todos')
+        axios.get(`${API_URL}?status=${filter !== "all" ? filter : ""}`)
             .then(response => setTodos(response.data))
             .catch(error => console.error('Error:', error));
-    }, []);
+    }, [filter]);
 
     return (
         <div className='todo-page'>
@@ -39,29 +48,22 @@ function Todo() {
                 </div>
                 <div className='todo-list-row'>
                     <div className='todo-list-nav-row'>
-                        <button>Active</button>
-                        <button>Done</button>
+                        <button onClick={() => setFilter("active")}>Active</button>
+                        <button onClick={() => setFilter("done")}>Done</button>
                     </div>
                     <div className='todo-list'>
-                        {todos.map((todo, index) => (
-                            <div key={index} className='todo-item'>
-                                <input type='checkbox' checked={todo.done ? true : false} onChange={() => handleCheckbox(index)}></input>
-                                <span>{todo.text}</span>
+                        {todos.map(({ _id, text, done }) => (
+                            <div key={_id}>
+                                <input type='checkbox'
+                                    checked={done}
+                                    onChange={() => toggleDone(_id, done)}
+                                />
+                                <span>{text}</span>
+                                <button onClick={() => handleDelete(_id)}>X</button>
                             </div>
                         ))}
                     </div>
                 </div>
-
-                {/*                 <input type='text' placeholder='New todo' value={todoText} onChange={(e) => setTodoText(e.target.value)}></input>
-                <button onClick={() => setTodos([...todos, {text: todoText, done: todoDone}])}>Add</button>
-                <div className='todo-list'>
-                    {todos.map((todo, index) => (
-                        <div key={index} className='todo-item'>
-                            <input type='checkbox'></input>
-                            <span>{todo.text}</span>
-                        </div>
-                    ))}
-                </div> */}
             </div>
 
         </div>
