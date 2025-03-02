@@ -1,58 +1,8 @@
 @import "tailwindcss";
 
 
-/* html, body {
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Roboto', sans-serif;
-    background-color: #efefef;
-} */
-
-.header {
-    background-color: #03032e;
-    display: flex;
-    flex-direction: column;
-    color: #efefef;
-    justify-content: center;
-    align-items: center;
-}
-
-.header-top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 8px 0;
-
-}
-
-.header-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 50%;
-}
-
-.header-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 8px 0;
-}
-
-.bullet {
-    margin: 0 12px;
-}
-
-.header-nav-button {
-    background-color: inherit;
-    padding-top: 4px;
-    border: 2px solid transparent;
-
-}
-
-.header-nav-button:hover {
-    border: 2px solid #efefef;
-    border-radius: 25%;
-    cursor:pointer;
-    background-color: #07075a;
-}
+/*
+#07075a;
+#03032e;
+#efefef;
+*/

@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
-function ShowDate() {
+function HeaderDate() {
     const [date, setDate] = useState(new Date());
 
     useEffect(() => {
@@ -12,15 +12,15 @@ function ShowDate() {
     }, []);
 
     return (
-        <div className="header-date">
+        <span>
             {date.toLocaleDateString('de-DE', {
                 weekday: 'long',
                 day: 'numeric',
                 month: 'short',
                 year: '2-digit'
             })}
-        </div>
+        </span>
     );
 }
 
-export default ShowDate;
+export default HeaderDate;

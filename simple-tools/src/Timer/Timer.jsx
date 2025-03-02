@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './Timer.module.css';
 import startTimerIcon from '../assets/start_32dp.svg';
 import resetTimerIcon from '../assets/stop_32dp.svg';
 import pauseTimerIcon from '../assets/pause_32dp.svg';
@@ -19,6 +18,31 @@ const Timer = () => {
         audioRef.current.currentTime = 0;
         audioRef.current.play();
     };
+
+    const handleStartButtonClick = () => {
+        setTimerOn(prevTimerOn => {
+            const newTimerOn = !prevTimerOn;
+            return newTimerOn;
+        });
+    }
+
+    const handleResetButtonClick = () => {
+        setTime(300);
+        setTimerOn(false);
+        clearInterval(intervalRef.current);
+    }
+
+    const handleSoundButtonClick = () => {
+        setSoundOn(prevSoundOn => {
+            const newSoundOn = !prevSoundOn;
+            return newSoundOn;
+        });
+    }
+
+    const handleSetButtonClick = (e) => {
+        const value = parseInt(e.target.innerText);
+        setTime(prevTime => Math.max(prevTime + (value * 60), 0));
+    }
 
     useEffect(() => {
         if (timerOn) {
@@ -43,74 +67,43 @@ const Timer = () => {
     }, [timerOn]);
 
     useEffect(() => {
-        const handleClick = (e) => {
-            if (e.target.classList.contains(styles.setButton)) {
-                const value = parseInt(e.target.innerText);
-                setTime(prevTime => Math.max(prevTime + (value * 60), 0));
-            }
-
-            if (e.target.classList.contains(styles.resetButton)) {
-                setTime(300);
-                setTimerOn(false);
-                clearInterval(intervalRef.current);
-            }
-
-            if (e.target.classList.contains(styles.startButton)) {
-                setTimerOn(prevTimerOn => {
-                    const newTimerOn = !prevTimerOn;
-                    return newTimerOn;
-                });
-            }
-
-            if (e.target.classList.contains(styles.soundButton)) {
-                setSoundOn(prevSoundOn => {
-                    const newSoundOn = !prevSoundOn;
-                    return newSoundOn;
-                });
-                
-            }
-        };
-
-        document.addEventListener("click", handleClick);
-
-        return () => {
-            document.removeEventListener("click", handleClick);
-        };
-    }, []);
-
-    useEffect(() => {
         document.title = timerOn ? secondsToTime(time) : 'Timer - Simple Tools';
     }, [time, timerOn]);
 
     return (
-        <div className={styles.timerPage}>
-            <div className={styles.timerContainer}>
-                <div className={styles.timerTitle}>Timer</div>
-                <div className={styles.topRow}>
-                    <div className={styles.setButtonsColumn}>
-                        <button className={styles.setButton}>-1</button>
-                        <button className={styles.setButton}>-5</button>
-                        <button className={styles.setButton}>-10</button>
+        <div className='flex justify-center p-3 min-h-screen bg-gray-100'>
+            <div className='bg-white text-center w-fit h-fit p-6 shadow-lg rounded-lg'>
+                <div className='flex justify-center mb-4'>
+                    <div className='flex flex-col space-y-2'>
+                        {[-1, -5, -10].map(value => (
+                            <button key={value} className='bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600' onClick={handleSetButtonClick}>
+                                {value}
+                            </button>
+                        ))}
                     </div>
-                    <div className={styles.display} id='display'>
-                        <span>{secondsToTime(time)}</span>
-                        <button className={styles.soundButton}>
-                            <img className={styles.controlButtonIcon} src={soundOn ? soundOnIcon : soundOffIcon} />
+                    <div id='display' className='flex relative justify-center items-center mx-4'>
+                        <span className='text-5xl font-mono'>{secondsToTime(time)}</span>
+                        <button className='absolute right-0 top-0 cursor-pointer p-1 bg-blue-900 hover:bg-blue-800 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105' 
+                        onClick={handleSoundButtonClick}>
+                            <img src={soundOn ? soundOnIcon : soundOffIcon} alt='Sound Icon' />
                         </button>
                     </div>
-                    <div className={styles.setButtonsColumn}>
-                        <button className={styles.setButton}>+1</button>
-                        <button className={styles.setButton}>+5</button>
-                        <button className={styles.setButton}>+10</button>
+                    <div className='flex flex-col space-y-2'>
+                        {[1, 5, 10].map(value => (
+                            <button key={value} className='bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600' onClick={handleSetButtonClick}>
+                                {'+' + value}
+                            </button>
+                        ))}
                     </div>
                 </div>
-                <div className={styles.bottomRow}>
-                    <button className={styles.resetButton} src={resetTimerIcon}>
-                        <img className={styles.controlButtonIcon} src={resetTimerIcon} />
+                <div className='flex justify-center space-x-4'>
+                    <button className='bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800'
+                        onClick={handleResetButtonClick}>
+                        <img src={resetTimerIcon} alt='Reset Icon' />
                     </button>
-                    <button className={styles.startButton}>
-                        <img className={styles.controlButtonIcon}
-                            src={timerOn ? pauseTimerIcon : startTimerIcon} />
+                    <button className='bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800'
+                        onClick={handleStartButtonClick}>
+                        <img src={timerOn ? pauseTimerIcon : startTimerIcon} alt='Start/Pause Icon' />
                     </button>
                 </div>
             </div>
