@@ -83,7 +83,7 @@ const Timer = () => {
                     </div>
                     <div id='display' className='flex relative justify-center items-center mx-4'>
                         <span className='text-5xl font-mono'>{secondsToTime(time)}</span>
-                        <button className='absolute right-0 top-0 cursor-pointer p-1 bg-blue-900 hover:bg-blue-800 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105' 
+                        <button className='absolute right-0 top-0 cursor-pointer p-1 bg-blue-800 hover:bg-blue-700 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105' 
                         onClick={handleSoundButtonClick}>
                             <img src={soundOn ? soundOnIcon : soundOffIcon} alt='Sound Icon' />
                         </button>
@@ -97,11 +97,11 @@ const Timer = () => {
                     </div>
                 </div>
                 <div className='flex justify-center space-x-4'>
-                    <button className='bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800'
+                    <button className='bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800'
                         onClick={handleResetButtonClick}>
                         <img src={resetTimerIcon} alt='Reset Icon' />
                     </button>
-                    <button className='bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-800'
+                    <button className='bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800'
                         onClick={handleStartButtonClick}>
                         <img src={timerOn ? pauseTimerIcon : startTimerIcon} alt='Start/Pause Icon' />
                     </button>

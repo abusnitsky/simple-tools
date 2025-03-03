@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, use } from "react";
-import styles from "./Stopwatch.module.css";
 import startStopwatchIcon from '../assets/start_32dp.svg';
 import resetStopwatchIcon from '../assets/stop_32dp.svg';
 import pauseStopwatchIcon from '../assets/pause_32dp.svg';
@@ -10,6 +9,15 @@ const Stopwatch = () => {
     const [elapsedTime, setElapsedTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const intervalRef = useRef(null);
+
+    const handleResetButtonClick = () => {
+        setElapsedTime(0);
+        setIsRunning(false);
+    }
+
+    const handleStartButtonClick = () => {
+        setIsRunning(prevIsRunning => !prevIsRunning);
+    }
 
     useEffect(() => {
         if (isRunning) {
@@ -23,39 +31,23 @@ const Stopwatch = () => {
     }, [isRunning]);
 
     useEffect(() => {
-        const handleClick = (e) => {
-            if (e.target.classList.contains(styles.stopwatchStartButton)) {
-                setIsRunning(prevIsRunning => !prevIsRunning);
-            }
-
-            if (e.target.classList.contains(styles.stopwatchResetButton)) {
-                setElapsedTime(0);
-                setIsRunning(false);
-            }
-        };
-
-        document.addEventListener('click', handleClick);
-        return () => document.removeEventListener('click', handleClick);
-    }, []);
-
-   // useEffect(() => document.title = isRunning ? secondsToTime(elapsedTime) : 'Stopwatch - Simple Tools', [elapsedTime]);
-    useEffect(() => {
         document.title = isRunning ? secondsToTime(elapsedTime) : 'Stopwatch - Simple Tools';
     }, [elapsedTime, isRunning]);
 
     return (
-        <div className={styles.stopwatchPage}>
-            <div className={styles.stopwatchContainer}>
-                <div className={styles.stopwatchTitle}>Stopwatch</div>
-                <div className={styles.stopwatchDisplay}>
+        <div className="flex flex-col items-center min-h-screen bg-gray-100">
+            <div className="bg-white m-3 shadow-md rounded-lg p-6">
+                <div className="text-5xl font-mono mb-4">
                     <span>{secondsToTime(elapsedTime)}</span>
                 </div>
-                <div className={styles.stopwatchControls}>
-                    <button className={styles.stopwatchResetButton}>
-                        <img className={styles.controlButtonIcon} src={resetStopwatchIcon} />
+                <div className="flex space-x-4 justify-center">
+                    <button className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full"
+                        onClick={handleResetButtonClick}>
+                        <img className="h-8 w-8" src={resetStopwatchIcon} alt="Reset" />
                     </button>
-                    <button className={styles.stopwatchStartButton}>
-                        <img className={styles.controlButtonIcon} src={isRunning ? pauseStopwatchIcon : startStopwatchIcon} />
+                    <button className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full"
+                        onClick={handleStartButtonClick}>
+                        <img className="h-8 w-8" src={isRunning ? pauseStopwatchIcon : startStopwatchIcon} alt="Start/Pause" />
                     </button>
                 </div>
             </div>

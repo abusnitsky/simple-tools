@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Translit.module.css";
 import { translitCollection } from "../utils/utils.js";
 
 const Translit = () => {
@@ -14,6 +13,21 @@ const Translit = () => {
         window.open(`https://www.google.com/search?q=${translit}`, '_blank');
     }
 
+    const filterDuplicates = (collection) => {
+        const uniqueValues = new Set();
+        const filteredCollection = {};
+
+        for (const [key, value] of Object.entries(collection)) {
+            if (!uniqueValues.has(value)) {
+                uniqueValues.add(value);
+                filteredCollection[key] = value;
+            }
+        }
+
+        return filteredCollection;
+    }
+
+    //const filteredTranslitCollection = filterDuplicates(translitCollection);
     useEffect(() => {
         const translitText = (text) => {
             let result = '';
@@ -41,23 +55,32 @@ const Translit = () => {
     }, [text]);
 
     return (
-        <div className={styles.translitPage}>
-            <div className={styles.translitContainer}>
-                <div className={styles.translitTitle}>Transliteration</div>
-                <div className={styles.infoRow}>
-                    {Object.entries(translitCollection).map(([key, value]) => (
-                        <div key={key} className={styles.translitInfo}>
-                          <div>{key}</div>
-                          <div>{value}</div>
+        <div className="min-h-screen bg-gray-100 flex justify-center">
+            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md">
+                <div className="grid grid-cols-17 border-t">
+                    {Object.entries(filterDuplicates(translitCollection)).map(([key, value]) => (
+                        <div className="bg-gray-100 flex flex-col justify-center items-center border-b"
+                            key={key}>
+                            <div>{key}</div>
+                            <div>{value}</div>
                         </div>
                     ))}
                 </div>
-                <div className={styles.inputRow}>
-                    <textarea className={styles.translitTextArea} value={translit} onChange={(e) => setText(e.target.value)} />
+                <div className="mt-2">
+                    <textarea className="bg-gray-100 w-full p-2 border border-gray-300 h-24 rounded-lg focus:outline-none"
+                        value={translit}
+                        onChange={(e) => setText(e.target.value)}
+                    />
                 </div>
-                <div className={styles.controlsRow}>
-                    <button className={styles.searchButton} onClick={handleSearchButtonClick}>Search</button>
-                    <button className={styles.clipboardButton} onClick={handleCopyButtonClick}>Copy</button>
+                <div className="flex justify-between mt-4">
+                    <button className="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg"
+                        onClick={handleSearchButtonClick}>
+                        Search
+                    </button>
+                    <button className="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg"
+                        onClick={handleCopyButtonClick}>
+                        Copy
+                    </button>
                 </div>
             </div>
         </div>
