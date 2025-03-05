@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import todoRoutes from './routes/todos.js';
+import eventRoutes from './routes/events.js';
 import config from './config/config.js';
 
 const app = express();
@@ -11,6 +12,7 @@ const app = express();
 app.use(cors(config.corsOptions));
 app.use(express.json());
 app.use('/todos', todoRoutes);
+app.use('/events', eventRoutes);
 
 mongoose.connect(config.mongoURI)
     .then(() => console.log("MongoDB Connected"))

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, use } from 'react'
 import axios from 'axios'
-//import styles from './Todo.module.css'
 import config from '../config.js'
 import addIcon from '../assets/add_24dp.svg'
 
