@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import axios from 'axios'
+import config from '../config.js'
 import Day from './Day';
 import DayPage from './DayPage';
 import feiertage from './hol.json';
@@ -8,6 +10,7 @@ import prevIcon from '../assets/arrow_back_ios_24dp.svg';
 const Calendar = () => {
     const [currentMonth, setCurrentMonth] = useState(''); // 'YYYY-MM'
     const [currentDay, setCurrentDay] = useState(''); // 'DD'
+    const [currentEvents, setCurrentEvents] = useState([]);
 
 
     const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -53,6 +56,26 @@ const Calendar = () => {
         setCurrentDay(day);
     }
 
+    useEffect(() => {
+        axios.get(`${config.EVENTS_API_URL}?year=${year}&month=${month}`)
+            .then(response => setCurrentEvents(response.data))
+            .catch(error => console.error('Error:', error));
+    }, [currentMonth, currentEvents]);
+
+    const isImportant = (year, month, day) => {
+        return currentEvents.some(event => {
+            const eventDate = new Date(event.date);
+            return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1 && eventDate.getDate() === day && event.important;
+        });
+    };
+
+    const isEvent = (year, month, day) => {
+        return currentEvents.some(event => {
+            const eventDate = new Date(event.date);
+            return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1 && eventDate.getDate() === day && !event.important;
+        });
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center">
             <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
@@ -60,41 +83,43 @@ const Calendar = () => {
                 {dayView ?
                     <DayPage changeView={handleDayView} year={year} month={month} day={currentDay} /> :
                     <div>
-                <div className='flex justify-center items-center'>
-                    <button onClick={() => changeMonth(-1)}
-                        className='bg-gray-500 hover:bg-gray-600 text-white p-2 rounded-l-lg'>
-                        <img src={prevIcon} alt='Previous' />
-                    </button>
-                    <input className='flex-grow p-2 border border-gray-300 focus:outline-none' type='month' value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)} />
-                    <button onClick={() => changeMonth(1)}
-                        className='bg-green-800 hover:bg-green-700 text-white p-2 rounded-r-lg'>
-                        <img src={nextIcon} alt='Next' />
-                    </button>
-                </div>
-                <div>
-                    <div className='grid grid-cols-7 gap-1 mt-2'>
-                        {dayNames.map(day => (
-                            <div key={day} className='bg-gray-200 flex justify-center items-center'>
-                                <span>{day}</span>
+                        <div className='flex justify-center items-center'>
+                            <button onClick={() => changeMonth(-1)}
+                                className='bg-gray-500 hover:bg-gray-600 text-white p-2 rounded-l-lg'>
+                                <img src={prevIcon} alt='Previous' />
+                            </button>
+                            <input className='flex-grow p-2 border border-gray-300 focus:outline-none' type='month' value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)} />
+                            <button onClick={() => changeMonth(1)}
+                                className='bg-green-800 hover:bg-green-700 text-white p-2 rounded-r-lg'>
+                                <img src={nextIcon} alt='Next' />
+                            </button>
+                        </div>
+                        <div>
+                            <div className='grid grid-cols-7 gap-1 mt-2'>
+                                {dayNames.map(day => (
+                                    <div key={day} className='bg-gray-200 flex justify-center items-center'>
+                                        <span>{day}</span>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                    <div className='grid grid-cols-7 gap-1 mt-1'>
-                        {previousMonthDays.map((day, i) => (
-                            <Day key={`prev-${i}`} day={day} holiday={isHoliday(year, month - 1, day)} off={true} />
-                        ))}
-                        {Array.from({ length: daysInMonth }, (_, i) => (
-                            <Day key={i + 1} 
-                            day={i + 1} 
-                            month={month} 
-                            holiday={isHoliday(year, month, i + 1) || isSunday(year, month, i + 1)}
-                            changeView={()=>handleDayView(i+1)} />
-                        ))}
-                        {nextMonthDays.map((day, i) => (
-                            <Day key={`next-${i}`} day={day} holiday={isHoliday(year, month + 1, day)} off={true} />
-                        ))}
-                    </div>
-                </div>                        
+                            <div className='grid grid-cols-7 gap-1 mt-1'>
+                                {previousMonthDays.map((day, i) => (
+                                    <Day key={`prev-${i}`} day={day} holiday={isHoliday(year, month - 1, day)} off={true} />
+                                ))}
+                                {Array.from({ length: daysInMonth }, (_, i) => (
+                                    <Day key={i + 1}
+                                        day={i + 1}
+                                        month={month}
+                                        holiday={isHoliday(year, month, i + 1) || isSunday(year, month, i + 1)}
+                                        important={isImportant(year, month, i + 1)}
+                                        event={isEvent(year, month, i + 1)}
+                                        changeView={() => handleDayView(i + 1)} />
+                                ))}
+                                {nextMonthDays.map((day, i) => (
+                                    <Day key={`next-${i}`} day={day} holiday={isHoliday(year, month + 1, day)} off={true} />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 }
 
