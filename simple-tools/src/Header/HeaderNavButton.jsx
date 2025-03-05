@@ -7,7 +7,6 @@ const HeaderNavButton = ({ id, icon }) => {
 
     const handleClick = (id) => {
         navigate(`/${id}`);
-        console.log(id);
     };
 
     return (
