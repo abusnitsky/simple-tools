@@ -83,7 +83,7 @@ const DayPage = ({ changeView, year, month, day }) => {
             <span className='pb-1'>Add:</span>
             <button className='bg-red-500 rounded-lg px-2 pb-1 hover:ring cursor-pointer'
               onClick={() => toggleEditMode(true)}>Important</button>
-            <button className='bg-amber-500 rounded-lg px-2 pb-1 hover:ring cursor-pointer'
+            <button className='bg-amber-400 rounded-lg px-2 pb-1 hover:ring cursor-pointer'
               onClick={() => toggleEditMode(false)}>Event</button>
           </div>
         }
@@ -95,7 +95,7 @@ const DayPage = ({ changeView, year, month, day }) => {
             .sort((a, b) => new Date(a.date) - new Date(b.date))
             .map((event, i) => (
               <div key={i} className='bg-gray-200 flex justify-between items-center p-2 rounded-lg'>
-                <div className='bg-gray-300 px-1'>{new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                <div className={`${event.important? 'bg-red-500' : 'bg-amber-400'} px-1 rounded-lg`}>{new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                 <div className='w-full pl-2'>{event.text}</div>
                 <div className='flex gap-x-1'>
                   <button onClick={() => {
@@ -103,11 +103,11 @@ const DayPage = ({ changeView, year, month, day }) => {
                     handleDelete(event._id);
                   }}>
                     <img src={editIcon} alt='Edit'
-                      className='bg-amber-500' />
+                      className='bg-amber-500 hover:bg-amber-600 cursor-pointer' />
                   </button>
                   <button onClick={() => handleDelete(event._id)}>
                     <img src={deleteIcon} alt='Delete'
-                      className='bg-red-500' />
+                      className='bg-red-500 hover:bg-red-600 cursor-pointer' />
                   </button>
                 </div>
               </div>

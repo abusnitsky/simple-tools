@@ -56,10 +56,10 @@ const Translit = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md">
-                <div className="grid grid-cols-17 border-t">
+            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
+                <div className="grid grid-cols-17 gap-1">
                     {Object.entries(filterDuplicates(translitCollection)).map(([key, value]) => (
-                        <div className="bg-gray-100 flex flex-col justify-center items-center border-b"
+                        <div className="bg-gray-100 flex flex-col justify-center items-center ring-1 ring-gray-300 shadow-lg"
                             key={key}>
                             <div>{key}</div>
                             <div>{value}</div>

@@ -37,7 +37,7 @@ function Todo() {
 
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md">
+            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
                 <div className="mb-4">
                     <form className="flex items-center" onSubmit={handleSubmit}>
                         <input

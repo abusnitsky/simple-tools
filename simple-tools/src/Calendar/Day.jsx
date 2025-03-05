@@ -13,13 +13,13 @@ const Day = ({ day, month, holiday, important, event, off, changeView }) => {
                 <span >{day}</span>
             </div>
             <div className='flex justify-center items-center'>
-                <div className={`${important ? 'bg-red-500' : 'bg-inherit'} w-full text-center`}>
-                    {important ? '!' : '_'}</div>
-                <div className={`${event ? 'bg-green-500' : 'bg-inherit'} w-full text-center`}>
-                    {event ? 'E' : '_'}
+                <div className={`${important ? 'bg-red-500' : 'bg-inherit'} w-full text-center rounded-full scale-75`}>
+                    {important ? '!' : '\u00A0'}
+                </div>
+                <div className={`${event ? 'bg-amber-400' : 'bg-inherit'} w-full text-center rounded-full scale-75`}>
+                    {event ? 'E' : '\u00A0'}
                 </div>
             </div>
-
         </div>
     );
 };
