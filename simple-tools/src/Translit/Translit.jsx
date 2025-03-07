@@ -27,7 +27,6 @@ const Translit = () => {
         return filteredCollection;
     }
 
-    //const filteredTranslitCollection = filterDuplicates(translitCollection);
     useEffect(() => {
         const translitText = (text) => {
             let result = '';
@@ -59,7 +58,7 @@ const Translit = () => {
             <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
                 <div className="grid grid-cols-17 gap-1">
                     {Object.entries(filterDuplicates(translitCollection)).map(([key, value]) => (
-                        <div className="bg-gray-100 flex flex-col justify-center items-center ring-1 ring-gray-300 shadow-lg"
+                        <div className="bg-gray-100 flex flex-col justify-center items-center ring-1 ring-gray-300 shadow-sm"
                             key={key}>
                             <div>{key}</div>
                             <div>{value}</div>
@@ -67,17 +66,17 @@ const Translit = () => {
                     ))}
                 </div>
                 <div className="mt-2">
-                    <textarea className="bg-gray-100 w-full p-2 border border-gray-300 h-24 rounded-lg focus:outline-none"
+                    <textarea className="bg-gray-100 w-full p-2 border border-gray-300 h-24 rounded-b-lg focus:outline-none shadow-sm"
                         value={translit}
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
                 <div className="flex justify-between mt-4">
-                    <button className="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg"
+                    <button className="bg-blue-800 hover:bg-blue-700 text-white px-4 pb-1 rounded-lg shadow-sm"
                         onClick={handleSearchButtonClick}>
                         Search
                     </button>
-                    <button className="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-lg"
+                    <button className="bg-blue-800 hover:bg-blue-700 text-white px-4 pb-1 rounded-lg shadow-sm"
                         onClick={handleCopyButtonClick}>
                         Copy
                     </button>
