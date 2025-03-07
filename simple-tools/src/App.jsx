@@ -7,6 +7,7 @@ import Stopwatch from './Stopwatch/Stopwatch.jsx';
 import Translit from './Translit/Translit.jsx';
 import Calendar from './Calendar/Calendar.jsx';
 import Settings from './Settings/Settings.jsx';
+import Weather from './Weather/Weather.jsx';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/translit" element={<Translit />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/weather" element={<Weather />} />
         </Routes>
       </Router>
     </>

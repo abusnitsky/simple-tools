@@ -1,0 +1,23 @@
+{
+    "latitude": 51.06,
+    "longitude": 13.74,
+    "generationtime_ms": 0.0498294830322266,
+    "utc_offset_seconds": 3600,
+    "timezone": "Europe/Berlin",
+    "timezone_abbreviation": "GMT+1",
+    "elevation": 116,
+    "current_units": {
+      "time": "iso8601",
+      "interval": "seconds",
+      "temperature_2m": "°C",
+      "apparent_temperature": "°C",
+      "precipitation": "mm"
+    },
+    "current": {
+      "time": "2025-03-06T00:15",
+      "interval": 900,
+      "temperature_2m": 4.3,
+      "apparent_temperature": 1.8,
+      "precipitation": 0
+    }
+  }
