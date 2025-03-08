@@ -22,7 +22,6 @@ mongoose.connect(config.mongoURI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.error("MongoDB Connection Error:", err));
 
-// Generate Tokens
 const generateAccessToken = (user) => {
     return jwt.sign(user, config.jwtSecret, { expiresIn: "15m" });
 };
@@ -31,7 +30,6 @@ const generateRefreshToken = (user) => {
     return jwt.sign(user, config.jwtRefreshSecret, { expiresIn: "7d" });
 };
 
-// Register Route
 app.post("/register", async (req, res) => {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username });
@@ -46,7 +44,6 @@ app.post("/register", async (req, res) => {
     res.status(201).json({ message: "User registered successfully" });
 });
 
-// Login Route
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -61,7 +58,6 @@ app.post("/login", async (req, res) => {
     res.json({ accessToken });
 });
 
-// Refresh Token Route
 app.post("/refresh", (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) return res.sendStatus(401);
@@ -83,7 +79,6 @@ app.get("/verify", authenticateToken, (req, res) => {
 });
 
 app.get("/profile", authenticateToken, (req, res) => {
-    // res.json({ message: `Logged in as ${req.user.username}` });
     console.log(req.user);
     res.json({ username: req.user.username });
 });
