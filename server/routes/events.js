@@ -1,5 +1,6 @@
 import express from 'express';
 import Event from '../model/Event.js';
+import authenticateToken from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

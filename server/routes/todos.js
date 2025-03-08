@@ -1,5 +1,7 @@
 import express from 'express';
 import Todo from '../model/Todo.js';
+import authenticateToken from '../middleware/authMiddleware.js';
+
 
 const router = express.Router();
 

@@ -6,11 +6,15 @@ import jwt from 'jsonwebtoken';
 import todoRoutes from './routes/todos.js';
 import eventRoutes from './routes/events.js';
 import config from './config/config.js';
+import cookieParser from 'cookie-parser';
+import User from './model/User.js';
+import authenticateToken from './middleware/authMiddleware.js';
 
 const app = express();
 
 app.use(cors(config.corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 app.use('/todos', todoRoutes);
 app.use('/events', eventRoutes);
 
@@ -18,5 +22,85 @@ mongoose.connect(config.mongoURI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.error("MongoDB Connection Error:", err));
 
-app.listen(8080, () => console.log('Server is running on port 8080'));
+// Generate Tokens
+const generateAccessToken = (user) => {
+    return jwt.sign(user, config.jwtSecret, { expiresIn: "15m" });
+};
 
+const generateRefreshToken = (user) => {
+    return jwt.sign(user, config.jwtRefreshSecret, { expiresIn: "7d" });
+};
+
+// Middleware to Authenticate Token
+/* const authenticateToken = (req, res, next) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, config.jwtSecret, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+}; */
+
+// Register Route
+app.post("/register", async (req, res) => {
+    const { username, password } = req.body;
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ username, password: hashedPassword });
+    await newUser.save();
+
+    res.status(201).json({ message: "User registered successfully" });
+});
+
+// Login Route
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    const accessToken = generateAccessToken({ username });
+    const refreshToken = generateRefreshToken({ username });
+
+    res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true });
+    res.json({ accessToken });
+});
+
+// Refresh Token Route
+app.post("/refresh", (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.sendStatus(401);
+
+    jwt.verify(refreshToken, config.jwtRefreshSecret, (err, user) => {
+        if (err) return res.sendStatus(403);
+        const newAccessToken = generateAccessToken({ username: user.username });
+        res.json({ accessToken: newAccessToken });
+    });
+});
+
+// Logout Route
+app.post("/logout", (req, res) => {
+    res.clearCookie("refreshToken");
+    res.json({ message: "Logged out" });
+});
+
+app.get("/verify", authenticateToken, (req, res) => {
+    res.json({ loggedIn: true, user: req.user });
+  });
+
+// Protected Route
+app.get("/profile", authenticateToken, (req, res) => {
+    res.json({ message: `Welcome, ${req.user.username}!` });
+  });
+  
+// Start Server
+app.listen(config.port, () => {
+    console.log(`Server running on port ${config.port}`);
+});
