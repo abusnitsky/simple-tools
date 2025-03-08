@@ -27,9 +27,9 @@ export const logout = async () => {
 
 export const checkAuth = async () => {
     try {
-        const res = await API.get("/verify"); // A protected route to check auth
-        return res.data.loggedIn; // Should return `true` if valid
+        const res = await API.get("/verify");
+        return res.data.loggedIn; 
     } catch {
-        return false; // If token is invalid or expired
+        return false;
     }
 };

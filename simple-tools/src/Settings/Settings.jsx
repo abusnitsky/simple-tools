@@ -3,11 +3,10 @@ import { login, register, logout, checkAuth } from '../utils/auth.js';
 import API from '../utils/api.js';
 
 const Settings = () => {
-    //const loginViewState = ['login', 'register', 'logout'];
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [user, setUser] = useState(null);
-    //const [loginView, setLoginView] = useState(loginViewState[0]);
     const [registerView, setRegisterView] = useState(false);
     const [message, setMessage] = useState("");
     const [loggedIn, setLoggedIn] = useState(false);
@@ -30,11 +29,16 @@ const Settings = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        if (password !== confirmPassword) {
+            setMessage("Passwords do not match!");
+            return;
+        }
         try {
             const res = await register(username, password);
             console.log(res.status);
             if (res.status === 201) {
                 setRegisterView(false);
+                setMessage("Registration successful!");
             }
             if (res.status === 400) {
                 setMessage(res.data.message);
@@ -67,44 +71,57 @@ const Settings = () => {
 
     return (
         <div className='flex justify-center bg-gray-200'>
-            <div className='mt-2 flex flex-col gap-2'>
+            <div className='mt-2 flex flex-col gap-2 max-w-full min-w-sm h-full'>
                 <div>
                     {loggedIn === false && registerView === false &&
                         <form onSubmit={handleLogin}
                             className='flex flex-col gap-2 p-4 bg-white rounded-lg shadow-lg my-2'>
-                            <label>Username:</label>
-                            <input type='text' className='ring'
+                            <input type='text' className='ring px-2 pb-1 rounded-sm'
+                                placeholder='username'
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)} />
-                            <label>Password:</label>
-                            <input type='password' className='ring'
+                            <input type='password' className='ring px-2 pb-1 rounded-sm'
+                                placeholder='password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)} />
-                            <button className='ring'>Login</button>
-                            <button className='hover:underline'
-                                onClick={() => setRegisterView(true)}>Register</button>
+                            <div className='flex justify-between'>
+                                <button className='bg-blue-800 text-white px-2 pb-1 rounded-sm'>Login</button>
+
+                                <button className='ring px-2 pb-1 rounded-sm'
+                                    onClick={() => setRegisterView(true)}>Registration</button>
+                            </div>
                             <div>{message}</div>
                         </form>
                     }
                     {registerView === true && loggedIn === false &&
                         <form onSubmit={handleRegister}
                             className='flex flex-col gap-2 p-4 bg-white rounded-lg shadow-lg my-2'>
-                            <label>Username:</label>
-                            <input type='text' className='ring'
+                            <label>Enter username:</label>
+                            <input type='text' className='ring px-2 pb-1 rounded-sm'
+                                placeholder='username'
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)} />
-                            <label>Password:</label>
-                            <input type='password' className='ring'
+                            <label className='mt-1'>Enter and confirm password:</label>
+                            <input type='password' className='ring px-2 pb-1 rounded-sm'
+                                placeholder='password'
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)} />
-                            <button className='ring'>Register</button>
-                            <div>{message}</div>
+                            <input type='password' className='ring px-2 pb-1 rounded-sm'
+                                placeholder='password'
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <div className='flex justify-between'>
+                                <button className='bg-blue-800 text-white px-2 pb-1 rounded-sm max-w-fit'>Register</button>
+                                <div>{message}</div>
+                            </div>
+
                         </form>
                     }
                     {loggedIn === true && registerView === false &&
-                        <div>
-                            <div>{user ? <div>{user.message}!</div> : <div>Loading...</div>}</div>
-                            <button onClick={handleLogout}>Logout</button>
+                        <div className='flex flex-col gap-2 p-4 bg-white rounded-lg shadow-lg my-2'>
+                            <div>{user ? <div>Logged in as <span className='font-semibold text-lg'>{user.username}</span> </div>
+                                : <div>Loading...</div>}</div>
+                            <button className='ring rounded-sm px-2 pb-1 max-w-fit' onClick={handleLogout}>Logout</button>
                         </div>
                     }
                 </div>

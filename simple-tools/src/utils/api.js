@@ -32,7 +32,6 @@ API.interceptors.response.use(
       } catch (refreshError) {
         console.error("Refresh token expired");
         localStorage.removeItem("accessToken");
-        window.location.href = "/settings"; // Redirect to login
       }
     }
     return Promise.reject(error);

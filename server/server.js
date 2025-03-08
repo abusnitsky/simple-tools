@@ -31,18 +31,6 @@ const generateRefreshToken = (user) => {
     return jwt.sign(user, config.jwtRefreshSecret, { expiresIn: "7d" });
 };
 
-// Middleware to Authenticate Token
-/* const authenticateToken = (req, res, next) => {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.sendStatus(401);
-
-    jwt.verify(token, config.jwtSecret, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
-}; */
-
 // Register Route
 app.post("/register", async (req, res) => {
     const { username, password } = req.body;
@@ -85,7 +73,6 @@ app.post("/refresh", (req, res) => {
     });
 });
 
-// Logout Route
 app.post("/logout", (req, res) => {
     res.clearCookie("refreshToken");
     res.json({ message: "Logged out" });
@@ -93,14 +80,14 @@ app.post("/logout", (req, res) => {
 
 app.get("/verify", authenticateToken, (req, res) => {
     res.json({ loggedIn: true, user: req.user });
-  });
+});
 
-// Protected Route
 app.get("/profile", authenticateToken, (req, res) => {
-    res.json({ message: `Welcome, ${req.user.username}!` });
-  });
-  
-// Start Server
+    // res.json({ message: `Logged in as ${req.user.username}` });
+    console.log(req.user);
+    res.json({ username: req.user.username });
+});
+
 app.listen(config.port, () => {
     console.log(`Server running on port ${config.port}`);
 });
