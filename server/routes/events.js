@@ -4,10 +4,11 @@ import authenticateToken from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
     try {
         const { year, month, day } = req.query;
-        let filter = {};
+
+        let filter = { user: req.user._id };
 
         if (year || month || day) {
             let startDate = new Date(year || new Date().getFullYear(), (month - 1) || 0, day || 1);
@@ -32,9 +33,13 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
     try {
-        const newEvent = await Event.create(req.body);
+        const { text, important, date } = req.body;
+        if (!text || !date) {
+            return res.status(400).json({ message: "Text and date are required" });
+        }
+        const newEvent = await Event.create({ text, important, date, user: req.user._id });
         res.status(201).json(newEvent);
     } catch (error) {
         console.error("❌ Error adding event:", error);
@@ -42,13 +47,14 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticateToken, async (req, res) => {
     try {
         const { id } = req.params;
         const { year, month, day } = req.query;
-        let filter = {};
+        let filter = {user: req.user._id};
 
-        const deletedEvent = await Event.findByIdAndDelete(id);
+        //const deletedEvent = await Event.findByIdAndDelete(id);
+        const deletedEvent = await Event.findOneAndDelete({_id: id, user: req.user._id});
         if (!deletedEvent) {
             return res.status(404).json({ message: "Event not found" });
         }

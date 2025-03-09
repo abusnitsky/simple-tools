@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios'
 import config from '../config.js'
+import API from '../utils/api.js'
 import Day from './Day';
 import DayPage from './DayPage';
 import feiertage from './hol.json';
@@ -57,7 +58,7 @@ const Calendar = () => {
     }
 
     useEffect(() => {
-        axios.get(`${config.EVENTS_API_URL}?year=${year}&month=${month}`)
+        API.get(`/events?year=${year}&month=${month}`)
             .then(response => setCurrentEvents(response.data))
             .catch(error => console.error('Error:', error));
     }, [currentMonth, currentEvents]);
@@ -90,7 +91,7 @@ const Calendar = () => {
                             </button>
                             <input className='flex-grow p-2 border border-gray-300 focus:outline-none' type='month' value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)} />
                             <button onClick={() => changeMonth(1)}
-                                className='bg-green-700 hover:bg-green-800 text-white p-2 rounded-r-lg'>
+                                className='bg-gray-400 hover:bg-gray-500 text-white p-2 rounded-r-lg'>
                                 <img src={nextIcon} alt='Next' />
                             </button>
                         </div>

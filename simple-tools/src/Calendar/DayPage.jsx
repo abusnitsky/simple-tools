@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import config from '../config.js'
+import API from '../utils/api.js'
 import prevIcon from '../assets/arrow_back_ios_24dp.svg';
 import addIcon from '../assets/add_24dp.svg';
 import cancelIcon from '../assets/cancel_24dp.svg';
@@ -26,7 +27,7 @@ const DayPage = ({ changeView, year, month, day }) => {
   const editPlaceholder = importantMode ? 'Importent event...' : 'Event...';
 
   useEffect(() => {
-    axios.get(`${config.EVENTS_API_URL}?year=${year}&month=${month}&day=${day}`)
+    API.get(`/events?year=${year}&month=${month}&day=${day}`)
       .then(response => setEvents(response.data))
       .catch(error => console.error('Error:', error));
   }, []);
@@ -35,7 +36,7 @@ const DayPage = ({ changeView, year, month, day }) => {
     e.preventDefault();
     const [hours, minutes] = eventTime.split(':');
     const eventDate = new Date(year, month - 1, day, hours, minutes);
-    axios.post(config.EVENTS_API_URL, { text: eventText, important: importantMode, date: eventDate })
+    API.post("/events", { text: eventText, important: importantMode, date: eventDate })
       .then(response => setEvents([...events, response.data]))
       .catch(error => console.error('Error:', error));
     setEventText('');
@@ -44,7 +45,7 @@ const DayPage = ({ changeView, year, month, day }) => {
   }
 
   const handleDelete = (id) => {
-    axios.delete(`${config.EVENTS_API_URL}/${id}?year=${year}&month=${month}&day=${day}`)
+    API.delete(`/events/${id}?year=${year}&month=${month}&day=${day}`)
       .then(response => setEvents(response.data))
       .catch(error => console.error('Error:', error));
   }
