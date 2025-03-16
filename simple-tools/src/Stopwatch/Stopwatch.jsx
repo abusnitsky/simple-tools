@@ -35,17 +35,17 @@ const Stopwatch = () => {
     }, [elapsedTime, isRunning]);
 
     return (
-        <div className="flex flex-col items-center min-h-screen bg-gray-100">
-            <div className="bg-white m-3 shadow-md rounded-lg p-6">
-                <div className="text-5xl font-mono mb-4">
-                    <span>{secondsToTime(elapsedTime)}</span>
+        <div className="min-h-screen bg-gray-100 flex justify-center">
+            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full items-center flex flex-col">
+                <div className="text-6xl font-semibold mb-4 w-6/10">
+                    <span className="">{secondsToTime(elapsedTime)}</span>
                 </div>
                 <div className="flex space-x-4 justify-center">
-                    <button className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full"
+                    <button className="cursor-pointer bg-blue-700 text-white px-8 py-2 rounded hover:bg-blue-800 shadow-md"
                         onClick={handleResetButtonClick}>
                         <img className="h-8 w-8" src={resetStopwatchIcon} alt="Reset" />
                     </button>
-                    <button className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full"
+                    <button className="cursor-pointer bg-blue-700 text-white px-8 py-2 rounded hover:bg-blue-800 shadow-md"
                         onClick={handleStartButtonClick}>
                         <img className="h-8 w-8" src={isRunning ? pauseStopwatchIcon : startStopwatchIcon} alt="Start/Pause" />
                     </button>
