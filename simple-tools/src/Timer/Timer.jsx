@@ -71,37 +71,37 @@ const Timer = () => {
     }, [time, timerOn]);
 
     return (
-        <div className='flex justify-center p-3 min-h-screen bg-gray-100'>
-            <div className='bg-white text-center w-fit h-fit p-6 shadow-lg rounded-lg'>
-                <div className='flex justify-center mb-4'>
+        <div className='min-h-screen bg-gray-100 flex justify-center'>
+            <div className='bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full'>
+                <div className='flex justify-between'>
                     <div className='flex flex-col space-y-2'>
                         {[-1, -5, -10].map(value => (
-                            <button key={value} className='bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600' onClick={handleSetButtonClick}>
+                            <button key={value} className='cursor-pointer px-3 pb-0.5 rounded ring shadow-sm hover:bg-gray-600 hover:text-white' onClick={handleSetButtonClick}>
                                 {value}
                             </button>
                         ))}
                     </div>
-                    <div id='display' className='flex relative justify-center items-center mx-4'>
-                        <span className='text-5xl font-mono'>{secondsToTime(time)}</span>
-                        <button className='absolute right-0 top-0 cursor-pointer p-1 bg-blue-800 hover:bg-blue-700 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105' 
+                    <div id='display' className='flex relative justify-center items-center mx-4 w-6/10'>
+                        <span className='text-6xl font-semibold  text-gray-800 font'>{secondsToTime(time)}</span>
+                        <button className='absolute -right-1 -top-2 cursor-pointer p-1 bg-gray-700 rounded-full shadow-md transition duration-300 ease-in-out transform hover:bg-gray-600' 
                         onClick={handleSoundButtonClick}>
                             <img src={soundOn ? soundOnIcon : soundOffIcon} alt='Sound Icon' />
                         </button>
                     </div>
                     <div className='flex flex-col space-y-2'>
                         {[1, 5, 10].map(value => (
-                            <button key={value} className='bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600' onClick={handleSetButtonClick}>
+                            <button key={value} className='cursor-pointer px-3 pb-0.5 rounded ring shadow-sm hover:bg-gray-600 hover:text-white' onClick={handleSetButtonClick}>
                                 {'+' + value}
                             </button>
                         ))}
                     </div>
                 </div>
-                <div className='flex justify-center space-x-4'>
-                    <button className='bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800'
+                <div className='flex justify-center space-x-4 mt-3'>
+                    <button className='cursor-pointer bg-blue-700 text-white px-8 py-2 rounded hover:bg-blue-800 shadow-md'
                         onClick={handleResetButtonClick}>
                         <img src={resetTimerIcon} alt='Reset Icon' />
                     </button>
-                    <button className='bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800'
+                    <button className='cursor-pointer bg-blue-700 text-white px-8 py-2 rounded hover:bg-blue-800 shadow-md'
                         onClick={handleStartButtonClick}>
                         <img src={timerOn ? pauseTimerIcon : startTimerIcon} alt='Start/Pause Icon' />
                     </button>
