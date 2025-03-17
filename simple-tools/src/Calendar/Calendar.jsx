@@ -86,12 +86,12 @@ const Calendar = () => {
                     <div>
                         <div className='flex justify-center items-center'>
                             <button onClick={() => changeMonth(-1)}
-                                className='bg-gray-400 hover:bg-gray-500 text-white p-2 rounded-l-lg'>
+                                className='bg-blue-700 hover:bg-gray-500 text-white p-2 rounded-l-lg'>
                                 <img src={prevIcon} alt='Previous' />
                             </button>
                             <input className='flex-grow p-2 border border-gray-300 focus:outline-none' type='month' value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)} />
                             <button onClick={() => changeMonth(1)}
-                                className='bg-gray-400 hover:bg-gray-500 text-white p-2 rounded-r-lg'>
+                                className='bg-blue-700 hover:bg-gray-500 text-white p-2 rounded-r-lg'>
                                 <img src={nextIcon} alt='Next' />
                             </button>
                         </div>
