@@ -3,6 +3,7 @@ import axios from 'axios'
 import config from '../config.js'
 import addIcon from '../assets/add_24dp.svg'
 import API from '../utils/api.js'
+import deleteIcon from '../assets/delete_24dp.svg'
 
 function Todo() {
     const [todos, setTodos] = useState([]);
@@ -71,7 +72,7 @@ function Todo() {
                             onChange={(e) => setTodoText(e.target.value)}
                         />
                         <button
-                            className="bg-blue-800 hover:bg-blue-700 text-white p-2 rounded-r-lg"
+                            className="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-r-lg cursor-pointer"
                             type="submit"
                         >
                             <img src={addIcon} alt="Add" />
@@ -81,13 +82,13 @@ function Todo() {
                 <div>
                     <div className="flex justify-between mb-4">
                         <button
-                            className={`px-4 py-2 rounded-lg ${filter === 'active' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                            className={`px-4 pb-1 rounded-md ${filter === 'active' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'} cursor-pointer`}
                             onClick={() => setFilter("active")}
                         >
                             Active
                         </button>
                         <button
-                            className={`px-4 py-2 rounded-lg ${filter === 'done' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                            className={`px-4 pb-1 rounded-md ${filter === 'done' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'} cursor-pointer`}
                             onClick={() => setFilter("done")}
                         >
                             Done
@@ -95,19 +96,20 @@ function Todo() {
                     </div>
                     <div>
                         {todos.map(({ _id, text, done }) => (
-                            <div className="flex items-center justify-between mb-2 p-2 border border-gray-300 rounded-lg" key={_id}>
+                            <div className="flex items-center justify-between mb-2 p-1 border border-gray-300 rounded-md" key={_id}>
                                 <input
-                                    className="mr-2"
+                                    className="mr-1 ml-2 scale-120 cursor-pointer accent-gray-500"
                                     type="checkbox"
                                     checked={done}
                                     onChange={() => toggleDone(_id, done)}
                                 />
-                                <span className={`flex-grow ${done ? 'line-through text-gray-500' : ''}`}>{text}</span>
+                                <span className={`mx-2 text-blue-800 pb-0.5 ${done ? 'text-gray-500' : ''}`}>&#8226;</span>
+                                <span className={`flex-grow ${done ? 'line-through text-gray-500' : 'text-gray-800'} pb-0.5`}>{text}</span>
                                 <button
-                                    className="text-red-500 hover:text-red-700"
+                                    className=" bg-red-600 hover:bg-red-700 rounded-md cursor-pointer scale-65 p-1"
                                     onClick={() => handleDelete(_id)}
                                 >
-                                    X
+                                    <img src={deleteIcon} alt="Delete" />
                                 </button>
                             </div>
                         ))}
