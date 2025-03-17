@@ -70,9 +70,8 @@ const Settings = () => {
     }, []);
 
     return (
-        <div className='flex justify-center bg-gray-200'>
+        <div className='min-h-screen bg-gray-100 flex justify-center'>
             <div className='mt-2 flex flex-col gap-2 max-w-full min-w-sm h-full'>
-                <div>
                     {loggedIn === false && registerView === false &&
                         <form onSubmit={handleLogin}
                             className='flex flex-col gap-2 p-4 bg-white rounded-lg shadow-lg my-2'>
@@ -95,7 +94,7 @@ const Settings = () => {
                     }
                     {registerView === true && loggedIn === false &&
                         <form onSubmit={handleRegister}
-                            className='flex flex-col gap-2 p-4 bg-white rounded-lg shadow-lg my-2'>
+                            className='flex flex-col gap-2 p-4 bg-white rounded-lg  my-2'>
                             <label>Enter username:</label>
                             <input type='text' className='ring px-2 pb-1 rounded-sm'
                                 placeholder='username'
@@ -118,13 +117,13 @@ const Settings = () => {
                         </form>
                     }
                     {loggedIn === true && registerView === false &&
-                        <div className='flex flex-col gap-2 p-4 bg-white rounded-lg shadow-lg my-2'>
+                        <div className='flex justify-between p-4 bg-white rounded-lg shadow-lg my-2'>
                             <div>{user ? <div>Logged in as <span className='font-semibold text-lg'>{user.username}</span> </div>
                                 : <div>Loading...</div>}</div>
-                            <button className='ring rounded-sm px-2 pb-1 max-w-fit' onClick={handleLogout}>Logout</button>
+                            <button className='ring rounded-sm px-2 pb-1 max-w-fit hover:underline cursor-pointer'
+                                onClick={handleLogout}>Logout</button>
                         </div>
                     }
-                </div>
             </div>
         </div>
     );
