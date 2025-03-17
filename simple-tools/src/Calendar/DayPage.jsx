@@ -56,12 +56,12 @@ const DayPage = ({ changeView, year, month, day }) => {
         <button className='bg-gradient-to-r from-gray-400 hover:ring rounded-l-lg w-full px-2 py-1 flex justify-between items-center cursor-pointer'
           onClick={changeView} >
           <img src={prevIcon} alt='back' />
-          <span className='font-semibold'>{day} {monthName} {year}</span>
+          <span className='font-semibold drop-shadow-sm'>{day} {monthName} {year}</span>
         </button>
       </div>
       <div >
         {editMode ?
-          <form className='flex items-center gap-x-1 mt-2'
+          <form className='flex items-center gap-x-1 mt-2 px-2 text-gray-800'
             onSubmit={handleSubmit}>
             <input type='time'
               value={eventTime}
@@ -70,45 +70,45 @@ const DayPage = ({ changeView, year, month, day }) => {
             <input type='text'
               value={eventText}
               onChange={(e) => setEventText(e.target.value)}
-              className='ring w-full rounded-lg px-2' placeholder={editPlaceholder} />
-            <button className='bg-green-500 rounded-lg cursor-pointer'
+              className='ring w-full rounded-lg px-2 pb-0.5 outline-0 shadow-sm' placeholder={editPlaceholder} />
+            <button className='bg-blue-700 rounded-lg cursor-pointer hover:scale-110 shadow-md'
               type='submit'>
               <img src={addIcon} alt='Add' />
             </button>
-            <button className='bg-red-500 rounded-lg cursor-pointer'
+            <button className='bg-red-500 rounded-lg cursor-pointer hover:scale-110 shadow-md'
               onClick={() => toggleEditMode(false)}>
               <img src={cancelIcon} alt='Cancel' />
             </button>
           </form> :
-          <div className='flex items-center gap-x-1 mt-2'>
-            <span className='pb-1'>Add:</span>
-            <button className='bg-red-500 rounded-lg px-2 pb-1 hover:ring cursor-pointer'
+          <div className='flex items-center gap-x-2 mt-3 px-3 text-gray-800'>
+            <span className='pb-1 drop-shadow-sm'>Add:</span>
+            <button className='bg-red-400 rounded-lg px-2 pb-1 hover:ring cursor-pointer shadow-sm'
               onClick={() => toggleEditMode(true)}>Important</button>
-            <button className='bg-amber-400 rounded-lg px-2 pb-1 hover:ring cursor-pointer'
+            <button className='bg-amber-300 rounded-lg px-2 pb-1 hover:ring cursor-pointer shadow-sm'
               onClick={() => toggleEditMode(false)}>Event</button>
           </div>
         }
 
       </div>
       <div>
-        <div className='grid grid-cols-1 gap-1 mt-2'>
+        <div className='grid grid-cols-1 gap-1 mt-3'>
           {events
             .sort((a, b) => new Date(a.date) - new Date(b.date))
             .map((event, i) => (
-              <div key={i} className='bg-gray-200 flex justify-between items-center p-2 rounded-lg'>
-                <div className={`${event.important? 'bg-red-500' : 'bg-amber-400'} px-1 rounded-lg`}>{new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                <div className='w-full pl-2'>{event.text}</div>
-                <div className='flex gap-x-1'>
+              <div key={i} className='bg-gray-100 text-gray-800 flex justify-between items-center p-1 rounded-lg shadow-sm'>
+                <div className={`${event.important? 'bg-red-400' : 'bg-amber-300'} px-1.5 pb-0.5 rounded-l-md shadow-sm`}>{new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                <div className='w-full pl-2 pb-0.5'>{event.text}</div>
+                <div className='flex gap-x-0.5'>
                   <button onClick={() => {
                     toggleEditMode(event.important, new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), event.text);
                     handleDelete(event._id);
                   }}>
                     <img src={editIcon} alt='Edit'
-                      className='bg-amber-500 hover:bg-amber-600 cursor-pointer' />
+                      className='bg-amber-400 hover:scale-110 cursor-pointer rounded-l-sm shadow-sm' />
                   </button>
                   <button onClick={() => handleDelete(event._id)}>
                     <img src={deleteIcon} alt='Delete'
-                      className='bg-red-500 hover:bg-red-600 cursor-pointer' />
+                      className='bg-red-500 hover:scale-110 cursor-pointer rounded-r-sm shadow-sm' />
                   </button>
                 </div>
               </div>

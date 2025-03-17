@@ -86,24 +86,24 @@ const Calendar = () => {
                     <div>
                         <div className='flex justify-center items-center'>
                             <button onClick={() => changeMonth(-1)}
-                                className='bg-blue-700 hover:bg-gray-500 text-white p-2 rounded-l-lg'>
+                                className='bg-blue-700 hover:bg-blue-800 pl-4 pr-2 py-2 rounded-l-lg shadow-lg cursor-pointer'>
                                 <img src={prevIcon} alt='Previous' />
                             </button>
-                            <input className='flex-grow p-2 border border-gray-300 focus:outline-none' type='month' value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)} />
+                            <input className='flex-grow p-2 border border-gray-300 focus:outline-none shadow-sm text-gray-600' type='month' value={currentMonth} onChange={(e) => setCurrentMonth(e.target.value)} />
                             <button onClick={() => changeMonth(1)}
-                                className='bg-blue-700 hover:bg-gray-500 text-white p-2 rounded-r-lg'>
+                                className='bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded-r-lg shadow-lg cursor-pointer'>
                                 <img src={nextIcon} alt='Next' />
                             </button>
                         </div>
-                        <div>
-                            <div className='grid grid-cols-7 gap-1 mt-2'>
+                        <div className='mt-1.5'>
+                            <div className='grid grid-cols-7 gap-1'>
                                 {dayNames.map(day => (
-                                    <div key={day} className='bg-gray-200 flex justify-center items-center'>
+                                    <div key={day} className='bg-gray-200 flex justify-center items-center rounded-t-sm shadow-md pb-1 text-gray-700'>
                                         <span>{day}</span>
                                     </div>
                                 ))}
                             </div>
-                            <div className='grid grid-cols-7 gap-1 mt-1'>
+                            <div className='grid grid-cols-7 gap-1 mt-2'>
                                 {previousMonthDays.map((day, i) => (
                                     <Day key={`prev-${i}`} day={day} holiday={isHoliday(year, month - 1, day)} off={true} />
                                 ))}
