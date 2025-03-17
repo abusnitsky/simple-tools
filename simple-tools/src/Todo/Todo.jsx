@@ -4,7 +4,8 @@ import config from '../config.js'
 import addIcon from '../assets/add_24dp.svg'
 import API from '../utils/api.js'
 import deleteIcon from '../assets/delete_24dp.svg'
-
+import PageBody from '../Components/Containers/PageBody.jsx'
+import MainContainer from '../Components/Containers/MainContainer.jsx'
 function Todo() {
     const [todos, setTodos] = useState([]);
     const [todoText, setTodoText] = useState('');
@@ -60,8 +61,8 @@ function Todo() {
     }, [filter]);
 
     return (
-        <div className="min-h-screen bg-gray-100 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
+        <PageBody>
+            <MainContainer>
                 <div className="mb-4">
                     <form className="flex items-center" onSubmit={handleSubmit}>
                         <input
@@ -115,8 +116,9 @@ function Todo() {
                         ))}
                     </div>
                 </div>
-            </div>
-        </div>
+            </MainContainer>
+        </PageBody>
+
     )
 }
 

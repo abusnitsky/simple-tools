@@ -3,7 +3,8 @@ import startStopwatchIcon from '../assets/start_32dp.svg';
 import resetStopwatchIcon from '../assets/stop_32dp.svg';
 import pauseStopwatchIcon from '../assets/pause_32dp.svg';
 import { secondsToTime } from '../utils/utils.js';
-
+import PageBody from "../Components/Containers/PageBody.jsx";
+import MainContainer from "../Components/Containers/MainContainer.jsx";
 const Stopwatch = () => {
 
     const [elapsedTime, setElapsedTime] = useState(0);
@@ -35,8 +36,8 @@ const Stopwatch = () => {
     }, [elapsedTime, isRunning]);
 
     return (
-        <div className="min-h-screen bg-gray-100 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full items-center flex flex-col">
+        <PageBody>
+            <MainContainer>
                 <div className="text-6xl font-semibold mb-3 w-6/10 border-b-2 border-gray-300 pl-1.5 pb-1.5 drop-shadow-lg">
                     <span className="text-gray-800">{secondsToTime(elapsedTime)}</span>
                 </div>
@@ -50,8 +51,8 @@ const Stopwatch = () => {
                         <img className="h-8 w-8" src={isRunning ? pauseStopwatchIcon : startStopwatchIcon} alt="Start/Pause" />
                     </button>
                 </div>
-            </div>
-        </div>
+            </MainContainer>
+        </PageBody>
     );
 
 };

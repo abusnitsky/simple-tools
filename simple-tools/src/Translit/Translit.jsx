@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { translitCollection } from "../utils/utils.js";
-
+import PageBody from "../Components/Containers/PageBody.jsx";
+import MainContainer from "../Components/Containers/MainContainer.jsx";
 const Translit = () => {
     const [text, setText] = useState('');
     const [translit, setTranslit] = useState('');
@@ -54,8 +55,8 @@ const Translit = () => {
     }, [text]);
 
     return (
-        <div className="min-h-screen bg-gray-100 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
+        <PageBody>
+        <MainContainer>
                 <div className="grid grid-cols-17 gap-1">
                     {Object.entries(filterDuplicates(translitCollection)).map(([key, value]) => (
                         <div className="bg-gray-100 flex flex-col justify-center items-center ring-1 ring-gray-300 shadow-sm"
@@ -81,8 +82,8 @@ const Translit = () => {
                         Copy
                     </button>
                 </div>
-            </div>
-        </div>
+            </MainContainer>
+        </PageBody>
     );
 }
 

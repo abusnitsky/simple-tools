@@ -6,6 +6,7 @@ import soundOnIcon from '../assets/sound_on_16dp.svg';
 import soundOffIcon from '../assets/sound_off_16dp.svg';
 import alertSound from '../assets/alert.mp3';
 import { secondsToTime } from '../utils/utils.js';
+import PageBody from '../Components/Containers/PageBody.jsx';
 
 const Timer = () => {
     const [time, setTime] = useState(300);
@@ -71,7 +72,7 @@ const Timer = () => {
     }, [time, timerOn]);
 
     return (
-        <div className='min-h-screen bg-gray-100 flex justify-center'>
+        <PageBody>
             <div className='bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full'>
                 <div className='flex justify-between'>
                     <div className='flex flex-col space-y-2'>
@@ -83,8 +84,8 @@ const Timer = () => {
                     </div>
                     <div id='display' className='flex relative justify-center items-center mx-4 w-6/10'>
                         <span className='text-6xl font-semibold  text-gray-800 font'>{secondsToTime(time)}</span>
-                        <button className='absolute -right-1 -top-2 cursor-pointer p-1 bg-gray-700 rounded-full shadow-md transition duration-300 ease-in-out transform hover:bg-gray-600' 
-                        onClick={handleSoundButtonClick}>
+                        <button className='absolute -right-1 -top-2 cursor-pointer p-1 bg-gray-700 rounded-full shadow-md transition duration-300 ease-in-out transform hover:bg-gray-600'
+                            onClick={handleSoundButtonClick}>
                             <img src={soundOn ? soundOnIcon : soundOffIcon} alt='Sound Icon' />
                         </button>
                     </div>
@@ -107,7 +108,7 @@ const Timer = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </PageBody>
     );
 };
 

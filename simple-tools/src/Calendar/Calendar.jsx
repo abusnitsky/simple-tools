@@ -7,7 +7,8 @@ import DayPage from './DayPage';
 import feiertage from './hol.json';
 import nextIcon from '../assets/arrow_forward_ios_24dp.svg';
 import prevIcon from '../assets/arrow_back_ios_24dp.svg';
-
+import PageBody from '../Components/Containers/PageBody.jsx';
+import MainContainer from '../Components/Containers/MainContainer.jsx';
 const Calendar = () => {
     const [currentMonth, setCurrentMonth] = useState(''); // 'YYYY-MM'
     const [currentDay, setCurrentDay] = useState(''); // 'DD'
@@ -78,8 +79,8 @@ const Calendar = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex justify-center">
-            <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full">
+        <PageBody>
+            <MainContainer>
 
                 {dayView ?
                     <DayPage changeView={handleDayView} year={year} month={month} day={currentDay} /> :
@@ -124,8 +125,8 @@ const Calendar = () => {
                     </div>
                 }
 
-            </div>
-        </div>
+            </MainContainer>
+        </PageBody>
     );
 };
 
