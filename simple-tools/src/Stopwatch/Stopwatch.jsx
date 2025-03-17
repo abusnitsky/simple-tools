@@ -37,10 +37,10 @@ const Stopwatch = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex justify-center">
             <div className="bg-white shadow-lg rounded-lg m-3 p-6 w-full max-w-md h-full items-center flex flex-col">
-                <div className="text-6xl font-semibold mb-4 w-6/10">
-                    <span className="">{secondsToTime(elapsedTime)}</span>
+                <div className="text-6xl font-semibold mb-3 w-6/10 border-b-2 border-gray-300 pl-1.5 pb-1.5 drop-shadow-lg">
+                    <span className="text-gray-800">{secondsToTime(elapsedTime)}</span>
                 </div>
-                <div className="flex space-x-4 justify-center">
+                <div className="flex space-x-5 justify-center">
                     <button className="cursor-pointer bg-blue-700 text-white px-8 py-2 rounded hover:bg-blue-800 shadow-md"
                         onClick={handleResetButtonClick}>
                         <img className="h-8 w-8" src={resetStopwatchIcon} alt="Reset" />
