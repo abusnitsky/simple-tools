@@ -65,18 +65,18 @@ const Translit = () => {
                         </div>
                     ))}
                 </div>
-                <div className="mt-2">
-                    <textarea className="bg-gray-100 w-full p-2 border border-gray-300 h-24 rounded-b-lg focus:outline-none shadow-sm"
+                <div className="mt-3">
+                    <textarea className="bg-gray-100 w-full p-2 border border-gray-300 h-32 rounded-b-lg focus:outline-none shadow-sm"
                         value={translit}
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
-                <div className="flex justify-between mt-4">
-                    <button className="bg-blue-800 hover:bg-blue-700 text-white px-4 pb-1 rounded-lg shadow-sm"
+                <div className="flex justify-between mt-3">
+                    <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 pb-1 rounded-lg shadow-lg"
                         onClick={handleSearchButtonClick}>
                         Search
                     </button>
-                    <button className="bg-blue-800 hover:bg-blue-700 text-white px-4 pb-1 rounded-lg shadow-sm"
+                    <button className="bg-blue-700 hover:bg-blue-800 text-white px-4 pb-1 rounded-lg shadow-lg"
                         onClick={handleCopyButtonClick}>
                         Copy
                     </button>
