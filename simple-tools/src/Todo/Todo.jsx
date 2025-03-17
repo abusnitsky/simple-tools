@@ -65,14 +65,14 @@ function Todo() {
                 <div className="mb-4">
                     <form className="flex items-center" onSubmit={handleSubmit}>
                         <input
-                            className="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none"
+                            className="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none shadow-sm"
                             type="text"
                             placeholder="New Todo"
                             value={todoText}
                             onChange={(e) => setTodoText(e.target.value)}
                         />
                         <button
-                            className="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-r-lg cursor-pointer"
+                            className="bg-blue-700 hover:bg-blue-800 text-white p-2 rounded-r-lg cursor-pointer shadow-md"
                             type="submit"
                         >
                             <img src={addIcon} alt="Add" />
@@ -82,13 +82,13 @@ function Todo() {
                 <div>
                     <div className="flex justify-between mb-4">
                         <button
-                            className={`px-4 pb-1 rounded-md ${filter === 'active' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'} cursor-pointer`}
+                            className={`px-4 pb-1 rounded-md ${filter === 'active' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'} cursor-pointer shadow-md`}
                             onClick={() => setFilter("active")}
                         >
                             Active
                         </button>
                         <button
-                            className={`px-4 pb-1 rounded-md ${filter === 'done' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'} cursor-pointer`}
+                            className={`px-4 pb-1 rounded-md ${filter === 'done' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-800'} cursor-pointer shadow-md`}
                             onClick={() => setFilter("done")}
                         >
                             Done
@@ -96,9 +96,9 @@ function Todo() {
                     </div>
                     <div>
                         {todos.map(({ _id, text, done }) => (
-                            <div className="flex items-center justify-between mb-2 p-1 border border-gray-300 rounded-md" key={_id}>
+                            <div className="flex items-center justify-between mb-2 p-1 border border-gray-300 rounded-md shadow-sm" key={_id}>
                                 <input
-                                    className="mr-1 ml-2 scale-120 cursor-pointer accent-gray-500"
+                                    className="mr-1 ml-2 scale-120 cursor-pointer accent-gray-500  drop-shadow-sm"
                                     type="checkbox"
                                     checked={done}
                                     onChange={() => toggleDone(_id, done)}
@@ -106,7 +106,7 @@ function Todo() {
                                 <span className={`mx-2 text-blue-800 pb-0.5 ${done ? 'text-gray-500' : ''}`}>&#8226;</span>
                                 <span className={`flex-grow ${done ? 'line-through text-gray-500' : 'text-gray-800'} pb-0.5`}>{text}</span>
                                 <button
-                                    className=" bg-red-600 hover:bg-red-700 rounded-md cursor-pointer scale-65 p-1"
+                                    className=" bg-red-600 hover:bg-red-700 rounded-md cursor-pointer scale-65 p-1 shadow-md"
                                     onClick={() => handleDelete(_id)}
                                 >
                                     <img src={deleteIcon} alt="Delete" />
